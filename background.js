@@ -11,6 +11,7 @@ const DEFAULT_STATE = {
   totalPages: 5,
   maxLinks: 500,
   links: [],
+  excludeSocial: true,
   baseUrl: null,
   harvestTabId: null,
   startedAt: null,
@@ -65,14 +66,14 @@ function navigateAndWait(tabId, url) {
   });
 }
 
-function extractLinksFromTab(tabId) {
+function extractLinksFromTab(tabId, excludeSocial) {
   return new Promise((resolve) => {
     chrome.scripting.executeScript(
       { target: { tabId }, files: ['content.js'] },
       () => {
         if (chrome.runtime.lastError) return resolve([]);
         setTimeout(() => {
-          chrome.tabs.sendMessage(tabId, { action: 'extractLinks' }, (response) => {
+          chrome.tabs.sendMessage(tabId, { action: 'extractLinks', excludeSocial }, (response) => {
             if (chrome.runtime.lastError || !response) return resolve([]);
             resolve(response.links || []);
           });
@@ -92,15 +93,17 @@ function buildPageUrl(baseUrl, pageIndex) {
 
 // ── Core harvest loop ────────────────────────────────────────────────────────
 
-async function runHarvest(tabId, baseUrl, maxPages, maxLinks) {
+async function runHarvest(tabId, baseUrl, maxPages, maxLinks, excludeSocial) {
   maxPages = Math.min(Math.max(parseInt(maxPages) || 5, 1), HARD_MAX_PAGES);
   maxLinks = Math.min(Math.max(parseInt(maxLinks) || 500, 1), HARD_MAX_LINKS);
+  excludeSocial = excludeSocial !== false; // default true
 
   await setState({
     status: 'running',
     currentPage: 0,
     totalPages: maxPages,
     maxLinks,
+    excludeSocial,
     links: [],
     baseUrl,
     harvestTabId: tabId,
@@ -129,7 +132,7 @@ async function runHarvest(tabId, baseUrl, maxPages, maxLinks) {
         await navigateAndWait(tabId, nextUrl);
       }
 
-      const links = await extractLinksFromTab(tabId);
+      const links = await extractLinksFromTab(tabId, excludeSocial);
       const tagged = links.map(l => ({ ...l, page: page + 1 }));
       allLinks = allLinks.concat(tagged);
 
@@ -175,8 +178,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.action === 'START_HARVEST') {
-    const { tabId, tabUrl, maxPages, maxLinks } = message;
-    runHarvest(tabId, tabUrl, maxPages, maxLinks).catch(async (err) => {
+    const { tabId, tabUrl, maxPages, maxLinks, excludeSocial } = message;
+    runHarvest(tabId, tabUrl, maxPages, maxLinks, excludeSocial).catch(async (err) => {
       await setState({ status: 'error', errorMsg: err.message });
       broadcast(await getState());
     });

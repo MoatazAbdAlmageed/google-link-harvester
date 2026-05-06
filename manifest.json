@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Google Link Harvester",
   "version": "2.0",
-  "description": "Collect all Google search result links from the first 5 pages in the background and copy them at once.",
+  "description": "Collect Google search result links with customizable page and link limits. Harvest in the background and export instantly.",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://www.google.com/*"],
   "background": {
@@ -11,10 +11,14 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "48": "icon.png"
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     }
   },
   "icons": {
-    "48": "icon.png"
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   }
 }

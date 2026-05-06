@@ -16,22 +16,27 @@ const downloadBtn = document.getElementById('downloadBtn');
 const clearBtn    = document.getElementById('clearBtn');
 const cfgPages    = document.getElementById('cfgPages');
 const cfgLinks    = document.getElementById('cfgLinks');
+const cfgExcludeSocial = document.getElementById('cfgExcludeSocial');
 
 // ── Config: load saved settings, persist on change ─────────────────────────
 chrome.storage.local.get('harvesterConfig', r => {
   const cfg = r.harvesterConfig || {};
   if (cfg.maxPages) cfgPages.value = cfg.maxPages;
   if (cfg.maxLinks) cfgLinks.value = cfg.maxLinks;
+  if (cfg.excludeSocial !== undefined) cfgExcludeSocial.checked = cfg.excludeSocial;
+  else if (cfg.excludeYoutube !== undefined) cfgExcludeSocial.checked = cfg.excludeYoutube; // migration fallback
 });
 
 function saveConfig() {
   chrome.storage.local.set({ harvesterConfig: {
     maxPages: parseInt(cfgPages.value) || 5,
-    maxLinks: parseInt(cfgLinks.value) || 500
+    maxLinks: parseInt(cfgLinks.value) || 500,
+    excludeSocial: cfgExcludeSocial.checked
   }});
 }
 cfgPages.addEventListener('change', saveConfig);
 cfgLinks.addEventListener('change', saveConfig);
+cfgExcludeSocial.addEventListener('change', saveConfig);
 const statsBar    = document.getElementById('statsBar');
 const sPg         = document.getElementById('sPg');
 const sLk         = document.getElementById('sLk');
@@ -83,6 +88,10 @@ function applyState(state) {
     harvestBtn.classList.add('cancel-mode');
     harvestLabel.textContent = 'Cancel';
     harvestBtn.disabled = false;
+  } else if (status === 'done') {
+    harvestBtn.classList.remove('cancel-mode');
+    harvestLabel.textContent = 'Harvest All Pages';
+    harvestBtn.disabled = true; // Disable until clear
   } else {
     harvestBtn.classList.remove('cancel-mode');
     harvestLabel.textContent = 'Harvest All Pages';
@@ -92,9 +101,11 @@ function applyState(state) {
   // lock config inputs while running
   cfgPages.disabled = status === 'running';
   cfgLinks.disabled = status === 'running';
+  cfgExcludeSocial.disabled  = status === 'running';
 
   // copy + download buttons
   copyBtn.disabled = links.length === 0;
+  if (links.length === 0) copyBtn.innerHTML = '<span>📋</span> Copy';
   downloadBtn.disabled = links.length === 0;
 
   // stats
@@ -172,7 +183,8 @@ harvestBtn.addEventListener('click', async () => {
     tabId: tab.id,
     tabUrl: tab.url,
     maxPages: parseInt(cfgPages.value) || 5,
-    maxLinks: parseInt(cfgLinks.value) || 500
+    maxLinks: parseInt(cfgLinks.value) || 500,
+    excludeSocial: cfgExcludeSocial.checked
   });
 });
 
@@ -188,6 +200,7 @@ copyBtn.addEventListener('click', async () => {
     document.body.removeChild(ta);
   }
   showToast(`✓ Copied ${(state.links||[]).length} links!`);
+  copyBtn.innerHTML = '<span>✓</span> Copied';
 });
 
 function buildMarkdown(links, query) {
