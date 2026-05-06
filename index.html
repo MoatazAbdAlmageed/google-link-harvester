@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Link Harvester - Simple & Secure Link Extraction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4285F4;
+            --primary-glow: rgba(66, 133, 244, 0.3);
+            --bg: #0d0d0f;
+            --surface: #16161a;
+            --surface-accent: #1e1e26;
+            --text: #e8e8f0;
+            --muted: #9ca3af;
+            --border: #2a2a35;
+            --success: #34A853;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Header / Hero --- */
+        header {
+            padding: 80px 0 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: radial-gradient(circle at 50% 0%, var(--primary-glow) 0%, transparent 70%);
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: var(--surface);
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 20px;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--primary-glow);
+        }
+
+        /* --- Content Sections --- */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            width: 8px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* --- Privacy Content --- */
+        .privacy-box {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .privacy-item {
+            margin-bottom: 32px;
+        }
+
+        .privacy-item h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .privacy-item p {
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .privacy-item ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .privacy-item li {
+            padding-left: 24px;
+            position: relative;
+            margin-bottom: 8px;
+            color: var(--muted);
+        }
+
+        .privacy-item li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 36px; }
+            .privacy-box { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo-container">🔗</div>
+            <h1>Google Link Harvester</h1>
+            <p>The narrow, focused tool for collecting and exporting organic links from Google Search results.</p>
+            <a href="#" class="cta-button">Add to Chrome</a>
+        </div>
+    </header>
+
+    <section id="privacy">
+        <div class="container">
+            <h2>Privacy Policy</h2>
+            <div class="privacy-box">
+                <p style="margin-bottom: 32px; font-size: 14px; color: var(--muted);">Last Updated: May 6, 2026</p>
+
+                <div class="privacy-item">
+                    <h3>1. Single Purpose Design</h3>
+                    <p>Google Link Harvester is built with a single purpose: to help users extract links from search results. We do not include any secondary features that track user behavior or browse history across other sites.</p>
+                </div>
+
+                <div class="privacy-item">
+                    <h3>2. No Data Collection</h3>
+                    <p>The extension <strong>does not collect</strong>, transmit, or sell any user data. All operations happen entirely within your local browser environment.</p>
+                    <ul>
+                        <li>No collection of Personal Identifiable Information (PII).</li>
+                        <li>No tracking of browsing history.</li>
+                        <li>No server-side storage of your search queries.</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-item">
+                    <h3>3. Local Storage Only</h3>
+                    <p>Any links you harvest are stored temporarily in your browser's local storage so that you can copy or download them. This data stays on your machine and is cleared when you choose or when the extension is uninstalled.</p>
+                </div>
+
+                <div class="privacy-item">
+                    <h3>4. Necessary Permissions</h3>
+                    <p>We use only the minimum permissions required to function:</p>
+                    <ul>
+                        <li><strong>Scripting/Host Permission:</strong> To read the link titles and URLs on Google search pages.</li>
+                        <li><strong>Tabs:</strong> To manage the background harvesting process.</li>
+                        <li><strong>Storage:</strong> To save your harvest results locally.</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-item">
+                    <h3>5. Contact & Support</h3>
+                    <p>For questions regarding this policy or the extension, please contact the developer via the Chrome Web Store support dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Google Link Harvester. Focused on privacy and productivity.</p>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="https://chrome.google.com/webstore" target="_blank">Chrome Web Store</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
