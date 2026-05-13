@@ -1,5 +1,7 @@
 # 🔗 Google Link Harvester
 
+![Google Link Harvester Hero](branding/hero.png)
+
 A Chrome extension that automatically collects all search result links across multiple Google pages and lets you copy or download them in bulk — all while running silently in the background.
 
 **Production Site:** [https://moatazabdalmageed.github.io/google-link-harvester/](https://moatazabdalmageed.github.io/google-link-harvester/)

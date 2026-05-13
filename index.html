@@ -96,6 +96,20 @@
             box-shadow: 0 8px 24px var(--primary-glow);
         }
 
+        .hero-image {
+            margin-top: 60px;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow);
+            transition: transform 0.3s;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
         /* --- Content Sections --- */
         section {
             padding: 60px 0;
@@ -200,6 +214,9 @@
             <h1>Google Link Harvester</h1>
             <p>The narrow, focused tool for collecting and exporting organic links from Google Search results.</p>
             <a href="#" class="cta-button">Add to Chrome</a>
+            <div style="perspective: 1000px;">
+                <img src="branding/hero.png" alt="Google Link Harvester Interface" class="hero-image">
+            </div>
         </div>
     </header>
 
