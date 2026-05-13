@@ -2,6 +2,8 @@
 
 A Chrome extension that automatically collects all search result links across multiple Google pages and lets you copy or download them in bulk — all while running silently in the background.
 
+**Production Site:** [https://moatazabdalmageed.github.io/google-link-harvester/](https://moatazabdalmageed.github.io/google-link-harvester/)
+
 ---
 
 ## Features
@@ -50,7 +52,7 @@ Once harvesting starts, the background service worker takes over. You can close 
 ## Configuration
 
 | Setting | Default | Range | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Max pages | 5 | 1 – 50 | Number of Google result pages to crawl |
 | Max links | 500 | 1 – 5000 | Stop collecting once this many unique links are found |
 
@@ -61,9 +63,9 @@ Settings are saved automatically and persist across browser sessions.
 ## Export Formats
 
 | Format | Example output |
-|---|---|
+| --- | --- |
 | **URLs only** | `https://example.com` |
-| **Title + URL** | `Example Site`<br>`https://example.com` |
+| **Title + URL** | `Example Site` <br> `https://example.com` |
 | **Markdown** | `1. [Example Site](https://example.com)` |
 | **Numbered** | `1. https://example.com` |
 
@@ -73,7 +75,7 @@ The **⬇ .md** download button always exports in Markdown format, with links gr
 
 ## File Structure
 
-```
+```text
 google-link-harvester/
 ├── manifest.json     # Extension manifest (MV3)
 ├── background.js     # Service worker — owns all harvesting logic and state
@@ -85,7 +87,7 @@ google-link-harvester/
 
 ### Architecture
 
-```
+```text
 popup.js  ──── START_HARVEST ──►  background.js
               GET_STATE      ──►  (chrome.storage.local)
               CANCEL / CLEAR ──►
@@ -104,7 +106,7 @@ The popup is a pure display layer. Closing it has no effect on an active harvest
 ## Permissions
 
 | Permission | Reason |
-|---|---|
+| --- | --- |
 | `scripting` | Inject the link-extraction script into Google Search pages |
 | `tabs` | Read the current tab URL and navigate pages |
 | `storage` | Persist harvest state and settings across popup sessions |

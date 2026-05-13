@@ -3,6 +3,7 @@
   "name": "Google Link Harvester",
   "version": "2.0",
   "description": "Collect Google search result links with customizable page and link limits. Harvest in the background and export instantly.",
+  "homepage_url": "https://moatazabdalmageed.github.io/google-link-harvester/",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://www.google.com/*"],
   "background": {
